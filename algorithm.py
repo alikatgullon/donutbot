@@ -3,10 +3,10 @@ import json
 import runpy
 
 # Generate 80 random users (Specified in file)
-runpy.run_path('randomUserGenerator.py')
+# runpy.run_path('randomUserGenerator.py')
 
 # Read the generated data from the file
-with open('sample_users.json', 'r') as file:
+with open('activemembersFA24.json', 'r') as file:
     users = json.load(file)
 
 # Initialize a set to track user pairs that have been together
@@ -33,9 +33,14 @@ def calculate_diversity(user1, user2):
         return diversity_score
 
     # Calculate diversity based on differences in all keys
-    for key in user1:
-        if user1[key] != user2[key]:
-            diversity_score += 1
+    # for key in user1:
+    #     if user1[key] != user2[key]:
+    #         diversity_score += 1
+    if user1["Grade"] != user2["Grade"]:
+        diversity_score += 1
+    
+    if user1["New Mem Class"] != user2["New Mem Class"]:
+        diversity_score += 1
 
     return diversity_score
 
@@ -89,3 +94,7 @@ for i, group in enumerate(diverse_groups):
 
 # Print remaining ungrouped members
 print("Ungrouped Members:", [user['Name'] for user in ungrouped_members])
+
+print("Past groupings:", past_groupings)
+
+
